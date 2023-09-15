@@ -2,8 +2,15 @@ import { defineStore } from "pinia";
 
 export const useTicTacToeStore = defineStore('tictactoe', {
   state: () => ({
-    game: {},
+    game: {
+      id: '',
+      matches: [],
+      player_one: {},
+      player_two: {},
+    },
     activePlayer: {},
+    inSettings: true,
+    isLoading: false
   }),
   getters: {
     activeMatch(state) {
@@ -18,19 +25,32 @@ export const useTicTacToeStore = defineStore('tictactoe', {
     isEmpty(state) {
       return Object.keys(state.game).length === 0
     },
-    board() {
-      return this.activeMatch.board
+    scorePlayerOne() {
+      return this.game.matches.filter(match => match.winner === 0 && match.finished).reduce((accu) => accu + 1, 0)
     },
+    scorePlayerTwo() {
+      return this.game.matches.filter(match => match.winner === 1 && match.finished).reduce((accu) => accu + 1, 0)
+    }
   },
   actions: {
-    makeMove(x, y) {
-      this.game.matches.find(match => match.active === 1).board[x][y] = this.activePlayer.symbol
-      this.setActivePlayer(this.activePlayer === this.playerOne ? this.playerTwo : this.playerOne)
+    async finishMatch(symbol) {
+      this.activeMatch.winner = symbol === 'X' ? 1 : 0
+      this.activeMatch.finished = 1
+      await axios.put(`/api/matches/finish`, this.activeMatch)
+    },
+    async createMatch() {
+      await axios.post('/api/matches', {'game_id': this.game.id})
+    },
+    async newMatch() {
+      this.isLoading = true;
+      await this.createMatch()
+      await this.start(this.game.id)
     },
     async start(id) {
       await this.fillGame(id)
       this.setBoard()
       this.setActivePlayer(this.playerOne)
+      this.inSettings = false;
     },
     async fillGame(id) {
       await axios.get(`/api/game/${id}/start`)
@@ -42,5 +62,9 @@ export const useTicTacToeStore = defineStore('tictactoe', {
     setActivePlayer(player) {
       this.activePlayer = player
     },
+    setMove(x, y) {
+      this.game.matches.find(match => match.active === 1).board[x][y] = this.activePlayer.symbol
+      this.setActivePlayer(this.activePlayer === this.playerOne ? this.playerTwo : this.playerOne)
+    }
   },
 })

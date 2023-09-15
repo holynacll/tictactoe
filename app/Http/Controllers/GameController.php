@@ -21,7 +21,6 @@ class GameController extends Controller
         ]);
         $game->matches()->create([
             'game_id' => $game->id,
-            'board' => json_encode(array_fill(0, 3, array_fill(0, 3, 0))),
         ]);
         return response()->json([
             'status' => 'success',

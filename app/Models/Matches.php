@@ -13,4 +13,9 @@ class Matches extends Model
         'game_id',
         'board',
     ];
+
+    public function __construct(array $attributes = array()) {
+        parent::__construct($attributes);
+        $this->setAttribute('board', json_encode(array_fill(0, 3, array_fill(0, 3, 0))));
+    }
 }

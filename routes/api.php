@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\MatchesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,5 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/game', [GameController::class, 'store']);
 Route::get('/game/{id}/start', [GameController::class, 'start']);
-// Route::get('/players/{$id}', [PlayerController::class, 'show']);
-// Route::get('/matches/{$id}', [MatchesController::class, 'show']);
+Route::post('/matches', [MatchesController::class, 'store']);
+Route::put('/matches/finish', [MatchesController::class, 'finish']);

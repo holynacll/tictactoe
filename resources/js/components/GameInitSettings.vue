@@ -38,8 +38,8 @@
 
 <script setup>
 import { ref, watch } from 'vue'
-import generateName from './../RandomNameGenerator.js'
-import { useTicTacToeStore } from './../../stores/TicTacToeStore.js'
+import generateName from './RandomNameGenerator.js'
+import { useTicTacToeStore } from '@/stores/TicTacToeStore.js'
 const tictactoeStore = useTicTacToeStore();
 
 const players = ref(
