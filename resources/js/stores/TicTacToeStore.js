@@ -33,8 +33,8 @@ export const useTicTacToeStore = defineStore('tictactoe', {
     }
   },
   actions: {
-    async finishMatch(symbol) {
-      this.activeMatch.winner = symbol === 'X' ? 1 : 0
+    async finishMatch() {
+      this.activeMatch.winner = this.activePlayer.symbol === 'X' ? 1 : 0
       this.activeMatch.finished = 1
       await axios.put(`/api/matches/finish`, this.activeMatch)
     },
@@ -51,6 +51,7 @@ export const useTicTacToeStore = defineStore('tictactoe', {
       this.setBoard()
       this.setActivePlayer(this.playerOne)
       this.inSettings = false;
+      this.isLoading = false;
     },
     async fillGame(id) {
       await axios.get(`/api/game/${id}/start`)
@@ -65,6 +66,6 @@ export const useTicTacToeStore = defineStore('tictactoe', {
     setMove(x, y) {
       this.game.matches.find(match => match.active === 1).board[x][y] = this.activePlayer.symbol
       this.setActivePlayer(this.activePlayer === this.playerOne ? this.playerTwo : this.playerOne)
-    }
+    },
   },
 })

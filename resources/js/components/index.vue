@@ -9,6 +9,6 @@ const tictactoeStore = useTicTacToeStore();
   <main class="pt-8 text-center dark:bg-gray-800 min-h-screen dark:text-white">
     <h1 class="mb-8 text-3xl font-bold uppercase">Jogo da Velha</h1>
     <GameInitSettings v-if="tictactoeStore.inSettings"/>
-    <GameStart v-else/>
+    <GameStart v-else-if="!tictactoeStore.isLoading"/>
   </main>
 </template>

@@ -12,6 +12,9 @@ class Matches extends Model
     protected $fillable = [
         'game_id',
         'board',
+        'winner',
+        'active',
+        'finished'
     ];
 
     public function __construct(array $attributes = array()) {

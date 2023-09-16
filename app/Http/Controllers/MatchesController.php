@@ -12,7 +12,7 @@ class MatchesController extends Controller
         $match = Matches::create(['game_id' => $request->input('game_id')]);
         return response()->json([
             'match' => $match
-        ]);
+        ], 201);
     }
 
     public function finish(Request $request)

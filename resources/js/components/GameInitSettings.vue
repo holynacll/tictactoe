@@ -66,9 +66,8 @@ function start() {
 }
 
 async function createGame() {
-  let response = await axios.post("/api/game", players.value)
-  tictactoeStore.start(response.data.game.id)
-    // .then(response => )
+  await axios.post("/api/game", players.value)
+    .then(response => tictactoeStore.start(response.data.game.id))
 }
 
 function hasValidInput() {

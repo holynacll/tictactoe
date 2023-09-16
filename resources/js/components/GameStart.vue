@@ -58,8 +58,24 @@ const makeMove = (x, y) => {
   if (winner.value) return
   if (tictactoeStore.activeMatch.board[x][y] != 0) return
   tictactoeStore.setMove(x, y)
+  if(tictactoeStore.activePlayer.mode === 'computer') setTimeout(makeComputerMove(), 1000)
 }
 
 watch(winner, () => {tictactoeStore.finishMatch()})
+
+const makeComputerMove = () => {
+  let possibleMoves = []
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (tictactoeStore.activeMatch.board[i][j] === 0) {
+          possibleMoves.push([i, j])
+        }
+      }
+    }
+    let randomInt = Math.floor(Math.random() * (possibleMoves.length-1))
+    let coords = possibleMoves[randomInt]
+    if(coords !== undefined)
+    makeMove(coords[0], coords[1])
+}
  
 </script>
