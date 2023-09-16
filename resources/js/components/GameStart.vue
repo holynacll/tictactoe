@@ -2,11 +2,11 @@
   <div class="flex">
     <div class="mb-4 px-2 w-full">
       <p>{{ tictactoeStore.playerOne.name }}</p>
-      <p>{{ tictactoeStore.scorePlayerOne}}</p>
+      <p>Score: {{ tictactoeStore.scorePlayerOne}}</p>
     </div>
     <div class="mb-4 px-2 w-full">
       <p>{{ tictactoeStore.playerTwo.name }}</p>
-      <p>{{ tictactoeStore.scorePlayerTwo}}</p>
+      <p>Score: {{ tictactoeStore.scorePlayerTwo}}</p>
     </div>
   </div>
   <div class="flex flex-col items-center mb-8">

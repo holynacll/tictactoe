@@ -9,11 +9,13 @@ docker run --rm --interactive --tty \
 
 ./vendor/bin/sail up -d
 
-docker compose exec laravel.test bash
+./vendor/bin/sail exec laravel.test bash
 
 cp .env.example .env
 
 php artisan key:generate
+
+php artisan migrate
 
 npm i
 
